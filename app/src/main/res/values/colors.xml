@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#259b24</color>
+    <color name="colorPrimaryDark">#056f00</color>
+    <color name="half_alpha_colorPrimary">#88259b24</color>
+    <color name="colorAccent">#75d572</color>
+    <color name="windowBackground">#fafafa</color>
+    <color name="white">#ffffff</color>
+    <color name="tab_title_text_normal">#e3e3e3</color>
+    <color name="black">#000000</color>
+    <color name="comm_text_color">#838383</color>
+    <color name="comm_gray_bg">#AAAAAA</color>
+    <color name="comm_gray_press">#888888</color>
+    <color name="default_item_decoration_color">#DDDDDD</color>
+    <color name="skin_item_using_text_color">#B7B9B8</color>
+    <color name="skin_item_name_text_color">#3D3E3E</color>
+    <!-- 皮肤颜色之一，琴酒红 -->
+    <color name="colorGinRed">#CD3700</color>
+    <!-- 皮肤颜色之一，玛瑙绿 -->
+    <color name="colorAgateGreen">#259b24</color>
+    <!-- 皮肤颜色之一，魅海蓝 -->
+    <color name="colorSeaBlue">#27B5EE</color>
+    <!-- 皮肤颜色之一，石墨雅黑 -->
+    <color name="colorGraphiteBlack">#424242</color>
+</resources>

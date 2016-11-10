@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?selectableItemBackground"
+    android:orientation="horizontal"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        >
+        <ImageView
+            android:id="@+id/art_thumbnail"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/default_art_img"
+            android:elevation="2dp"
+            />
+
+        <TextView
+            android:id="@+id/art_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/art_thumbnail"
+            android:layout_alignTop="@id/art_thumbnail"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/black"
+            android:text="男生最理想的［Better00A0me］女友，请别错过她！"
+            />
+
+        <TextView
+            android:id="@+id/art_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignBottom="@id/art_thumbnail"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="10sp"
+            android:text="2016-06-08 10:00"/>
+
+        <TextView
+            android:id="@+id/art_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/art_time"
+            android:layout_alignLeft="@id/art_title"
+            android:layout_alignBottom="@id/art_time"
+            android:layout_marginTop="10dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="10sp"
+            android:text="男生最理想的［Better00A0me］女友，请别错过她！"
+            />
+
+    </RelativeLayout>
+    
+
+</LinearLayout>

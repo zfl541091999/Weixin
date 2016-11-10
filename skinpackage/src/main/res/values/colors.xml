@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#F746FE</color>
+    <color name="colorPrimaryDark">#D726DE</color>
+    <color name="half_alpha_colorPrimary">#88F746FE</color>
+    <color name="white">#FFFFFF</color>
+</resources>

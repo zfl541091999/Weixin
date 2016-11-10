@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 跟随主题颜色的按钮 -->
+    <item android:drawable="@drawable/comm_button_bg_pressed" android:state_pressed="true" />
+    <item android:drawable="@drawable/comm_button_bg_normal" />
+</selector>

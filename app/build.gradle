@@ -1,0 +1,144 @@
+apply plugin: 'com.android.application'
+
+//获取产品名字
+def getProductName() {
+    return "Weixin"
+}
+//获取产品释放时间
+def getReleaseTime() {
+    return new Date().format("yyyyMMdd",TimeZone.getTimeZone("UTC"))
+}
+
+
+android {
+    signingConfigs {
+        zflKeyStore {
+            keyAlias
+            keyPassword
+            storeFile
+            storePassword
+        }
+    }
+    compileSdkVersion 23
+    buildToolsVersion '24.0.2'
+    defaultConfig {
+        applicationId "com.zfl.weixin"
+        minSdkVersion 19
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+        // dex突破65535的限制
+        multiDexEnabled true
+        //是否开启自动更新
+        buildConfigField "boolean", "AUTO_UPDATE", "true"
+        //初始渠道号和APP_NAME
+        manifestPlaceholders = [APP_NAME:'传阅-微信精选',CHANNEL_VALUE: 'zfl', CHANNEL_ID: 0]
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.zflKeyStore
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+        }
+    }
+    productFlavors {
+        xiaomi {
+            applicationId 'com.zfl.weixin.xiaomi'
+            manifestPlaceholders = [APP_NAME:'传阅-微信精选小米版',CHANNEL_VALUE: 'xiaomi', CHANNEL_ID: 555]
+            signingConfig signingConfigs.zflKeyStore
+            //是否开启自动更新
+            buildConfigField "boolean", "AUTO_UPDATE", "true"
+        }
+        wandoujia {
+            applicationId 'com.zfl.weixin.wandoujia'
+            manifestPlaceholders = [CHANNEL_VALUE: 'wandoujia', CHANNEL_ID: 444]
+            signingConfig signingConfigs.zflKeyStore
+            //是否开启自动更新
+            buildConfigField "boolean", "AUTO_UPDATE", "true"
+        }
+        youmeng {
+            applicationId 'com.zfl.weixin.youmeng'
+            manifestPlaceholders = [CHANNEL_VALUE: 'youmeng', CHANNEL_ID: 333]
+            signingConfig signingConfigs.zflKeyStore
+            //是否开启自动更新
+            buildConfigField "boolean", "AUTO_UPDATE", "true"
+        }
+        qihu360 {
+            applicationId 'com.zfl.weixin.qihu360'
+            manifestPlaceholders = [CHANNEL_VALUE: 'qihu360', CHANNEL_ID: 222]
+            signingConfig signingConfigs.zflKeyStore
+            //是否开启自动更新
+            buildConfigField "boolean", "AUTO_UPDATE", "true"
+        }
+    }
+//目前没有办法一次性把Channel_value和Channel_id赋予给flavor
+//    productFlavors.all {
+//        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//    }
+
+    //修改生成的apk名字，格式为 app名_版本号_打包时间_渠道名_release.apk
+    applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def oldFile = output.outputFile
+            if (variant.buildType.name.equals('release')) {
+                def releaseApkName = getProductName()+ "_v${defaultConfig.versionName}_${getReleaseTime()}_"+ variant.productFlavors[0].name+ '_release.apk'
+                output.outputFile = new File(oldFile.parent, releaseApkName)
+            }
+        }
+    }
+}
+
+//获取签名密钥信息
+File signFile = file('signing.properties');
+if (signFile.exists()) {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(signFile))
+    if (props.containsKey('keyAlias')
+            && props.containsKey('keyPassword')
+            && props.containsKey('storePassword')
+            && props.containsKey('storeFile')) {
+        android.signingConfigs.zflKeyStore.storeFile = file(props['storeFile'])
+        android.signingConfigs.zflKeyStore.storePassword = props['storePassword']
+        android.signingConfigs.zflKeyStore.keyAlias = props['keyAlias']
+        android.signingConfigs.zflKeyStore.keyPassword = props['keyPassword']
+    } else {
+        android.buildTypes.release.signingConfig = null;
+    }
+} else {
+    android.buildTypes.release.signingConfig = null;
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile "junit:junit:$rootProject.ext.junitVersion"
+    compile "com.android.support:recyclerview-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:design:$rootProject.supportLibraryVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.supportLibraryVersion"
+    compile "com.android.support:support-v4:$rootProject.supportLibraryVersion"
+    compile "com.google.guava:guava:$rootProject.guavaVersion"
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.github.rahatarmanahmed:circularprogressview:2.5.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'io.reactivex:rxjava:1.1.5'
+    compile 'io.reactivex:rxandroid:1.2.0'
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.okhttp:logging-interceptor:2.7.0'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    compile files('libs/volley-1.0.18.jar')
+    compile files('libs/nineoldandroids-2.4.0.jar')
+    compile project(':recyclerview-swipe')
+    compile project(':skinlibrary')
+}

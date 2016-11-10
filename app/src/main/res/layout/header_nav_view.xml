@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:skin="http://schemas.android.com/android/skin"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/colorPrimary"
+    skin:enable="true"
+    >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/my_icon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@mipmap/my_icon"
+        android:layout_centerInParent="true"
+        app:civ_border_color="@color/white"
+        app:civ_border_width="2dp"
+        />
+
+    <TextView
+        android:id="@+id/my_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_icon"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:text="朱飞龙"
+        />
+
+
+
+
+</RelativeLayout>

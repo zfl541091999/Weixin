@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest package="com.zfl.weixin"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".global.WeiXinApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/weixin"
+        android:label="${APP_NAME}"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:label"
+        >
+        <activity
+            android:name=".weixin.WeiXinActivity"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".weixinweb.WebActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".weixinfavor.FavorActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".weixinskin.SkinActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name=".weixinabout.AboutActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <meta-data
+            android:name="CHANNEL"
+            android:value="${CHANNEL_VALUE}"/>
+        <meta-data
+            android:name="CHANNEL_ID"
+            android:value="${CHANNEL_ID}"/>
+
+    </application>
+
+</manifest>
