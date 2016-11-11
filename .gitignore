@@ -1,0 +1,7 @@
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+/hs_err_pid4540.log
