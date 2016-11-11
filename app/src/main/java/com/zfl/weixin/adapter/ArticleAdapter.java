@@ -8,10 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.github.rahatarmanahmed.cpv.CircularProgressView;
 import com.zfl.weixin.R;
 import com.zfl.weixin.entity.Article;
 
 import java.util.List;
+
+import solid.ren.skinlibrary.loader.SkinManager;
 
 /**
  * Created by Administrator on 2016/6/11.
@@ -73,6 +76,10 @@ public class ArticleAdapter extends BaseAdapter {
                 thumbnailPath = article.getThumbnails().split("\\$")[0];
                 Glide.with(mContext).load(thumbnailPath).error(R.mipmap.default_art_img).into(art_thumbnail);
             }
+        } else if (holder.getViewType() == FooterType) {
+            CircularProgressView progressView = holder.getView(R.id.load_more_circle_progress);
+            //跟随主题颜色
+            progressView.setColor(SkinManager.getInstance().getColorPrimary());
         }
     }
 

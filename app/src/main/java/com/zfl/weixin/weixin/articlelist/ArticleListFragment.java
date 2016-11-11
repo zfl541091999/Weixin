@@ -27,6 +27,7 @@ import com.zfl.weixin.weixinweb.WebActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import solid.ren.skinlibrary.attr.base.AttrFactory;
 import solid.ren.skinlibrary.base.SkinBaseFragment;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -94,6 +95,8 @@ public class ArticleListFragment extends SkinBaseFragment implements ArticleList
         initUI();
     }
 
+
+
     private void initUI() {
         //设置refreshLayout下拉刷新时的圈圈跟随主题颜色
         dynamicAddView(mRefreshLayout, "colorScheme", R.color.colorPrimary);
@@ -128,7 +131,7 @@ public class ArticleListFragment extends SkinBaseFragment implements ArticleList
             }
         });
         //让“滚动到顶部的按钮跟随主题颜色”
-        dynamicAddView(mUpToTop, "background", R.color.half_alpha_colorPrimary);
+        dynamicAddView(mUpToTop, AttrFactory.BACKGROUND, R.color.half_alpha_colorPrimary);
         mUpToTop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,7 +139,6 @@ public class ArticleListFragment extends SkinBaseFragment implements ArticleList
                 mRecyclerView.smoothScrollToPosition(0);
             }
         });
-
     }
 
     private void initData() {
