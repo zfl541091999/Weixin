@@ -14,8 +14,10 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.squareup.leakcanary.RefWatcher;
 import com.zfl.weixin.R;
 import com.zfl.weixin.entity.Article;
+import com.zfl.weixin.global.WeiXinApp;
 import com.zfl.weixin.model.rxmodel.favor_artlist.FavorArtListRxModel;
 import com.zfl.weixin.utils.LogUtils;
 
@@ -33,7 +35,7 @@ public class WebActivity extends SkinBaseActivity implements WebContract.View{
     //默认网页标题
     String mTitle = "默认标题";
     //默认网页地址
-    String mUrl = "www.baidu.com";
+    String mUrl = "www.mtime.com";
     //传入到WebActivity的Article
     Article mArticle;
 
@@ -50,10 +52,17 @@ public class WebActivity extends SkinBaseActivity implements WebContract.View{
     ProgressBar mWebLoadingProgressBar;
     int mWebLoadingProgress = 0;
 
+    //监视内存泄漏
+    RefWatcher mRefWatcher;
+    WeiXinApp mWeiXinApp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = this;
+        mWeiXinApp = (WeiXinApp) getApplication();
+        mRefWatcher = WeiXinApp.getRefWatcher(mContext);
+        mRefWatcher.watch(this);
         setContentView(R.layout.activity_webview);
         initData();
         initUI();
@@ -120,6 +129,7 @@ public class WebActivity extends SkinBaseActivity implements WebContract.View{
                     if (newProgress == 100) {
                         //代表网页已经加载完成，进度条隐藏
                         mWebLoadingProgressBar.setVisibility(View.INVISIBLE);
+                        LogUtils.i(LogUtils.TAG, "WebView is Done!");
                     }
                 }
 
@@ -144,9 +154,11 @@ public class WebActivity extends SkinBaseActivity implements WebContract.View{
         Intent intent = getIntent();
         if (intent == null) finish();
         mArticle = (Article) intent.getSerializableExtra("article");
-        if (mArticle == null) finish();
-        mTitle = mArticle.getTitle();
-        mUrl = mArticle.getSourceUrl();
+        if (mArticle != null) {
+            mTitle = mArticle.getTitle();
+            mUrl = mArticle.getSourceUrl();
+//            finish();
+        }
         mPresenter = new WebPresenter(this,new FavorArtListRxModel(mContext));
     }
 

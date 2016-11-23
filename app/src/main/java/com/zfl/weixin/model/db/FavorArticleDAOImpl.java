@@ -67,6 +67,7 @@ public class FavorArticleDAOImpl implements FavorArticleDAO {
 
     @Override
     public boolean isFavorArticle(Article article) {
+        if (article == null) return false;
         SQLiteDatabase db = mHelper.getReadableDatabase();
         String article_id = article.getId();
         Cursor cursor = db.rawQuery("select * from favor_article where id = ?",new String[]{article_id});
